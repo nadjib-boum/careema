@@ -5,6 +5,7 @@ import { HeartPulse } from "lucide-react";
 const logoFont = Sour_Gummy({
   variable: "--font-logo-font",
   weight: ["400"],
+  subsets: ["latin"],
 });
 
 const Logo = ({ size, secondaryColor = "#555" }: { size?: "sm" | "md", secondaryColor?: string }) => {
