@@ -17,8 +17,8 @@ export const authOptions: AuthOptions = {
 
         const user = {
           id: "123",
-          email: "admin@mail.com",
-          password: "admin",
+          email: "admin@careema.com",
+          password: "karima123",
         };
 
         if (user.email !== credentials.email || user.password !== credentials.password) return null;

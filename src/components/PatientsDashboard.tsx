@@ -191,7 +191,7 @@ export default function DataTableDemo() {
 
   return (
     <div className="w-full">
-      <div className="flex items-center py-4">
+      <div className="flex justify-between items-center py-4">
         <Input
           placeholder="Filter patients..."
           value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
@@ -200,6 +200,7 @@ export default function DataTableDemo() {
           }
           className="max-w-sm"
         />
+        <Button style={{ backgroundColor: "var(--color-1)" }}>add patient</Button>
       </div>
       <div className="rounded-md border">
         <Table>

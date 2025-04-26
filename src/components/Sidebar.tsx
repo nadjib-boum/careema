@@ -42,13 +42,13 @@ export default function Sidebar() {
           <Home size={20} />
           <span>Home</span>
         </Link>
-        <Link href="/dashboard/diagnosis" className="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-800 transition-colors">
-          <Stethoscope size={20} />
-          <span>Diagnosis</span>
-        </Link>
         <Link href="/dashboard/patients" className="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-800 transition-colors">
           <Users size={20} />
           <span>Patients</span>
+        </Link>
+        <Link href="/dashboard/diagnosis" className="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-800 transition-colors">
+          <Stethoscope size={20} />
+          <span>Diagnosis</span>
         </Link>
       </nav>
       
