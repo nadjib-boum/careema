@@ -7,6 +7,7 @@ const logoFont = Sour_Gummy({
   weight: ["400"],
   subsets: ["latin"],
 });
+// 
 
 const Logo = ({ size, secondaryColor = "#555" }: { size?: "sm" | "md", secondaryColor?: string }) => {
 
