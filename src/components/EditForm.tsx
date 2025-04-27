@@ -26,7 +26,7 @@ import {
 } from "@/components/ui/select"
 import { editPatient } from "@/actions"
 import { useRouter } from "next/navigation"
-import { Patient } from "@/generated/prisma"
+import { Patient } from "@prisma/client"
 
 // Define form schema with Zod
 const formSchema = z.object({

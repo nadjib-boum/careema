@@ -33,7 +33,7 @@ import {
 } from "@/components/ui/table"
 import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
-import { Patient } from "@/generated/prisma"
+import { Patient } from "@prisma/client"
 import { deletePatient } from "@/actions"
 import { toast } from "sonner"
 

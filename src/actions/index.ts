@@ -1,7 +1,6 @@
-// app/form/actions.ts
 "use server"
 
-import { Patient } from "@/generated/prisma"
+import { Patient } from "@prisma/client"
 import db from "@/utils/db"
 import { revalidatePath } from "next/cache"
 import { z } from "zod"

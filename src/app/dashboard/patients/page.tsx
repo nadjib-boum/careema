@@ -1,6 +1,8 @@
 import PatientsDashboard from "@/components/PatientsDashboard";
 import db from "@/utils/db";
 
+export const dynamic = 'force-dynamic';
+
 export default async function PatientsPage() {
 
   const patients = await db.patient.findMany()
