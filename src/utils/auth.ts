@@ -1,5 +1,7 @@
 import CredentialsProvider from "next-auth/providers/credentials"
 import { getServerSession, type AuthOptions } from "next-auth";
+import db from "./db";
+import { md5Hash } from "@/helpers";
 
 
 export const authOptions: AuthOptions = {
@@ -15,15 +17,16 @@ export const authOptions: AuthOptions = {
 
         if (!credentials?.email || !credentials?.password) return null;
 
-        const user = {
-          id: "123",
-          email: "admin@careema.com",
-          password: "karima123",
-        };
+        const hashedPassword = md5Hash(credentials.password);
 
-        if (user.email !== credentials.email || user.password !== credentials.password) return null;
+        const user = await db.user.findFirst({
+          where: {
+            email: credentials.email,
+            password: hashedPassword,
+          }
+        });
 
-        if(!user) return null;
+        if (!user) return null;
 
         return user;
         

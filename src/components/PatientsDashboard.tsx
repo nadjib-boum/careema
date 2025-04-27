@@ -13,17 +13,13 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table"
-import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react"
+import { ArrowUpDown, MoreHorizontal, Pen, Trash } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
 import {
   DropdownMenu,
-  DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
@@ -35,38 +31,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-
-export type Patient = {
-  id: string
-  name: string;
-  gender: "male" | "female";
-  age: number;
-  phone: string;
-}
-
-const data: Patient[] = [
-  {
-    id: "1",
-    name: "John Doe",
-    gender: "male",
-    age: 30,
-    phone: "123-456-7890",
-  },
-  {
-    id: "2",
-    name: "Alice Smith",
-    gender: "female",
-    age: 41,
-    phone: "123-456-7890",
-  },
-  {
-    id: "3",
-    name: "Kyle Doe",
-    gender: "male",
-    age: 35,
-    phone: "123-456-7890",
-  },
-]
+import { Badge } from "@/components/ui/badge"
+import Link from "next/link"
+import { Patient } from "@/generated/prisma"
+import { deletePatient } from "@/actions"
+import { toast } from "sonner"
 
 export const columns: ColumnDef<Patient>[] = [
   {
@@ -95,7 +64,17 @@ export const columns: ColumnDef<Patient>[] = [
         </span>
       )
     },
-    cell: ({ row }) => <div className="lowercase">{row.getValue("gender")}</div>,
+    cell: ({ row }) => {
+
+      const gender = row.getValue("gender");
+
+      return (
+        <div className="lowercase">
+          { gender == "female" ? <Badge style={{ backgroundColor: "#FF90BB" }}>female</Badge> : <Badge style={{ backgroundColor: "#0081C9" }}>male</Badge> }
+        </div>
+      )
+
+    },
   },
   {
     accessorKey: "age",
@@ -134,7 +113,27 @@ export const columns: ColumnDef<Patient>[] = [
     accessorKey: "actions",
     enableHiding: false,
     cell: ({ row }) => {
-      const payment = row.original
+
+      const patientId = row.original.id;
+
+      const handleDelete = async () => {
+      
+        try {
+
+          await deletePatient(patientId)
+
+          toast.success("Patient deleted successfully")
+
+        } catch (error) {
+
+          console.error(error)
+
+          toast.error("Error deleting patient")
+
+        }
+
+      }
+
 
       return (
         <DropdownMenu>
@@ -145,15 +144,15 @@ export const columns: ColumnDef<Patient>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(payment.id)}
-            >
-              Copy payment ID
+            <DropdownMenuItem asChild>
+              <Link href={`/dashboard/patients/${row.original.id}/edit`} className="flex items-center gap-2 cursor-pointer">
+                <Pen />
+                <span>Edit</span>
+              </Link>
             </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>View customer</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
+            <DropdownMenuItem className="cursor-pointer" onClick={() => handleDelete()}>
+              <Trash /> Delete
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       )
@@ -161,17 +160,14 @@ export const columns: ColumnDef<Patient>[] = [
   },
 ]
 
-export default function DataTableDemo() {
+export default function DataTableDemo({ patients }: { patients: Patient[] }) {
   const [sorting, setSorting] = React.useState<SortingState>([])
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
-  )
-  const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({})
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
+  const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = React.useState({})
 
   const table = useReactTable({
-    data,
+    data: patients,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -200,7 +196,9 @@ export default function DataTableDemo() {
           }
           className="max-w-sm"
         />
-        <Button style={{ backgroundColor: "var(--color-1)" }}>add patient</Button>
+        <Link href="/dashboard/patients/new">
+          <Button style={{ backgroundColor: "var(--color-1)" }}>add patient</Button>
+        </Link>
       </div>
       <div className="rounded-md border">
         <Table>
