@@ -1,11 +1,13 @@
 import EditForm from "@/components/EditForm";
 import db from "@/utils/db";
 
-export default async function EditPage({  params }: { params: { id: string } }) {
+export default async function EditPage({  params }: { params: Promise<{ id: string }> }) {
+
+  const { id } = await params
 
   const patient = await db.patient.findUnique({
     where: {
-      id: params.id,
+      id,
     }
   })
 
