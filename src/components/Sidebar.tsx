@@ -1,7 +1,7 @@
 "use client";
 
 import Link from 'next/link';
-import { Home, Users, Loader2 } from 'lucide-react';
+import { Home, Users, Loader2, Stethoscope } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { signOut } from 'next-auth/react';
@@ -48,9 +48,12 @@ export default function Sidebar() {
           <Users size={20} />
           <span>Patients</span>
         </Link>
+        <Link href="/dashboard/diagnosis" className="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-800 transition-colors">
+          <Stethoscope size={20} />
+          <span>Reports</span>
+        </Link>
       </nav>
       
-      {/* Logout Button */}
       <div className="mt-auto">
         <Button className="w-full justify-center text-white" style={{ backgroundColor: "var(--color-1)" }} disabled={logoutLoading} onClick={handleLogout}>
           { logoutLoading ? <Loader2 className="animate-spin" size={16} /> : <span>Logout</span> }
