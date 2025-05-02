@@ -5,7 +5,11 @@ export const dynamic = 'force-dynamic';
 
 export default async function PatientsPage() {
 
-  const patients = await db.patient.findMany()
+  const patients = await db.patient.findMany({
+    orderBy: {
+      createdAt: "desc",
+    }
+  })
 
   return (
     <div>

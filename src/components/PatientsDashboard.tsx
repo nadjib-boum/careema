@@ -13,7 +13,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table"
-import { ArrowUpDown, MoreHorizontal, Pen, Trash } from "lucide-react"
+import { ArrowUpDown, MoreHorizontal, Pen, Stethoscope, Trash } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -53,24 +53,24 @@ export const columns: ColumnDef<Patient>[] = [
     cell: ({ row }) => <div className="lowercase">{row.getValue("name")}</div>,
   },
   {
-    accessorKey: "gender",
+    accessorKey: "sex",
     header: ({ column }) => {
       return (
         <span className="flex items-center gap-1"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Gender
+          Sex
           <ArrowUpDown size={15} />
         </span>
       )
     },
     cell: ({ row }) => {
 
-      const gender = row.getValue("gender");
+      const sex = row.getValue("sex");
 
       return (
         <div className="lowercase">
-          { gender == "female" ? <Badge style={{ backgroundColor: "#FF90BB" }}>female</Badge> : <Badge style={{ backgroundColor: "#0081C9" }}>male</Badge> }
+          { sex == "Female" ? <Badge style={{ backgroundColor: "#FF90BB" }}>female</Badge> : <Badge style={{ backgroundColor: "#0081C9" }}>male</Badge> }
         </div>
       )
 
@@ -144,6 +144,12 @@ export const columns: ColumnDef<Patient>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
+            <DropdownMenuItem asChild>
+              <Link href={`/dashboard/patients/${row.original.id}/diagnose`} className="flex items-center gap-2 cursor-pointer">
+              <Stethoscope />
+              <span>diagnose</span>
+              </Link>
+            </DropdownMenuItem>
             <DropdownMenuItem asChild>
               <Link href={`/dashboard/patients/${row.original.id}/edit`} className="flex items-center gap-2 cursor-pointer">
                 <Pen />

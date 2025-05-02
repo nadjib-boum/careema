@@ -1,5 +1,7 @@
+"use client";
+
 import Link from 'next/link';
-import { Home, Users, Loader2, Stethoscope } from 'lucide-react';
+import { Home, Users, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { signOut } from 'next-auth/react';
@@ -45,10 +47,6 @@ export default function Sidebar() {
         <Link href="/dashboard/patients" className="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-800 transition-colors">
           <Users size={20} />
           <span>Patients</span>
-        </Link>
-        <Link href="/dashboard/diagnosis" className="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-800 transition-colors">
-          <Stethoscope size={20} />
-          <span>Diagnosis</span>
         </Link>
       </nav>
       

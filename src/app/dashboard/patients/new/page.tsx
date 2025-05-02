@@ -1,10 +1,9 @@
-// app/form/page.tsx
 "use client"
 
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
+import { useRouter } from "next/navigation"
 import { useTransition } from "react"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
 import { toast } from "sonner"
 
 import { Button } from "@/components/ui/button"
@@ -26,33 +25,17 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { addPatient } from "@/actions"
-import { useRouter } from "next/navigation"
 
-// Define form schema with Zod
-const formSchema = z.object({
-  name: z.string().min(2, {
-    message: "Name must be at least 2 characters.",
-  }),
-  gender: z.enum(["male", "female"], {
-    required_error: "Please select a gender.",
-  }),
-  age: z.coerce.number().int().min(1, {
-    message: "You must be at least 1 years old.",
-  }),
-  phone: z.string().regex(/^\d{10}$/, {
-    message: "Phone number must be 10 digits.",
-  }),
-})
+import { patientSchema, type PatientFormType } from "@/schema";
 
 export default function () {
   const [isPending, startTransition] = useTransition()
   
-  // Initialize the form
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<PatientFormType>({
+    resolver: zodResolver(patientSchema),
     defaultValues: {
       name: "",
-      gender: "male",
+      sex: "Male",
       age: 0,
       phone: "",
     },
@@ -60,8 +43,7 @@ export default function () {
 
   const router = useRouter()
 
-  // Handle form submission
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  function onSubmit(values: PatientFormType) {
     startTransition(async () => {
       try {
         
@@ -103,7 +85,7 @@ export default function () {
           {/* Gender Field */}
           <FormField
             control={form.control}
-            name="gender"
+            name="sex"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Gender</FormLabel>
@@ -117,8 +99,8 @@ export default function () {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="male">Male</SelectItem>
-                    <SelectItem value="female">Female</SelectItem>
+                    <SelectItem value="Male">Male</SelectItem>
+                    <SelectItem value="Female">Female</SelectItem>
                   </SelectContent>
                 </Select>
                 <FormMessage />

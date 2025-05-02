@@ -33,7 +33,7 @@ const formSchema = z.object({
   name: z.string().min(2, {
     message: "Name must be at least 2 characters.",
   }).optional(),
-  gender: z.enum(["male", "female"], {
+  sex: z.enum(["Male", "Female"], {
     required_error: "Please select a gender.",
   }).optional(),
   age: z.coerce.number().int().min(1, {
@@ -46,7 +46,7 @@ const formSchema = z.object({
 
 export default function EditForm ({ patient }: { patient: Patient }) {
 
-  const { id, name, age, gender, phone } = patient;
+  const { id, name, age, sex, phone } = patient;
 
   const [isPending, startTransition] = useTransition()
   
@@ -55,7 +55,7 @@ export default function EditForm ({ patient }: { patient: Patient }) {
     resolver: zodResolver(formSchema),
     defaultValues: {
       name,
-      gender,
+      sex,
       age,
       phone,
     },
@@ -106,7 +106,7 @@ export default function EditForm ({ patient }: { patient: Patient }) {
           {/* Gender Field */}
           <FormField
             control={form.control}
-            name="gender"
+            name="sex"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Gender</FormLabel>
@@ -120,8 +120,8 @@ export default function EditForm ({ patient }: { patient: Patient }) {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="male">Male</SelectItem>
-                    <SelectItem value="female">Female</SelectItem>
+                    <SelectItem value="Male">Male</SelectItem>
+                    <SelectItem value="Female">Female</SelectItem>
                   </SelectContent>
                 </Select>
                 <FormMessage />

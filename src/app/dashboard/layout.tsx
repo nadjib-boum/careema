@@ -1,8 +1,17 @@
-"use client"
 
 import Sidebar from '@/components/Sidebar';
+import { auth } from '@/utils/auth';
+import { redirect } from 'next/navigation';
 
-export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
+
+  const session = await auth();
+
+  if (!session) {
+      return redirect("/login")
+  }
+
+
   return (
     <div className="flex h-screen">
       <Sidebar />
