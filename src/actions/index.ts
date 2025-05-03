@@ -3,11 +3,11 @@
 import { Patient } from "@prisma/client"
 import { revalidatePath } from "next/cache"
 import db from "@/utils/db"
-import { diagnosisFormSchema, type DiagnosisFormType, patientSchema } from "@/schema";
+import { diagnosisFormSchema, type DiagnosisFormType, patientSchema, type PatientFormType } from "@/schema";
 import DiagnosisService from "@/utils/diagnosis";
 
 
-export async function addPatient(formData: unknown) {
+export async function addPatient(formData: PatientFormType) {
 
   try {
 

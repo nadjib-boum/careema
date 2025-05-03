@@ -31,14 +31,14 @@ const chartConfig = {
 export function DiseaseChart ({ withCHDReportsCount, withoutCHDReportsCount }: { withCHDReportsCount: number; withoutCHDReportsCount: number }) {
 
   const chartData = [
-    { status: "withCHD", count: withCHDReportsCount, fill: "var(--color-1)" },
-    { status: "withoutCHD", count: withoutCHDReportsCount, fill: "var(--color-3)" },
+    { status: "withCHD", count: withCHDReportsCount, fill: "#ff6467" },
+    { status: "withoutCHD", count: withoutCHDReportsCount, fill: "#05df72" },
   ]
 
   return (
     <Card className="flex flex-col">
       <CardHeader className="items-center pb-0">
-        <CardTitle>Diagnosis Statistics</CardTitle>
+        <CardTitle className="text-lg">Prevalence of Disease X in Total Patients</CardTitle>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
         <ChartContainer

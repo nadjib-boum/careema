@@ -9,6 +9,7 @@ class DiagnosisServiceBase {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${process.env.DIAGNOSIS_SERVICE_TOKEN}`,
       },
       body: JSON.stringify(data),
     });

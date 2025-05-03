@@ -38,7 +38,7 @@ export function SexChart ({ maleCount, femaleCount }: { maleCount: number; femal
   return (
     <Card className="flex flex-col">
       <CardHeader className="items-center pb-0">
-        <CardTitle>Sex Statistics</CardTitle>
+        <CardTitle className="text-lg">Sex Statistics</CardTitle>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
         <ChartContainer
