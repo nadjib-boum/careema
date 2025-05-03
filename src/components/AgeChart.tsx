@@ -6,7 +6,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 
 // Define the Patient type
 type Patient = {
-  name: string;
   age: number;
 };
 
@@ -90,12 +89,12 @@ export default function AgeChart({ patients = [] }: PatientAgeDistributionProps)
         </div>
         
         <div className="mt-4 space-y-2">
-          <h3 className="text-sm font-medium">Detailed Statistics:</h3>
+          <h3 className="font-medium">Detailed Age Statistics:</h3>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-2">
             {ageRangeData.map((item) => (
               <div key={item.range} className="p-2 bg-gray-100 rounded-md">
-                <p className="text-sm font-medium">{item.range}</p>
-                <p className="text-lg">{item.count} patient{item.count !== 1 ? 's' : ''}</p>
+                <p className="text-sm font-medium">{item.range} Years old</p>
+                <p className=" text-gray-700">{item.count} patient{item.count !== 1 ? 's' : ''}</p>
               </div>
             ))}
           </div>

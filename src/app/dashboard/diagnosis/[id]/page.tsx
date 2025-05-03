@@ -1,5 +1,5 @@
 import HeartDiseasePrediction, { type ResultData } from "@/components/HeartDiseasePrediction"
-import ReportDownloadButton from "@/components/ReportDownloadButton";
+// import ReportDownloadButton from "@/components/ReportDownloadButton";
 import db from "@/utils/db";
 
 export default async function DiagnosisPage({ params }: { params: Promise<{ id: string }> }) {
@@ -19,7 +19,6 @@ export default async function DiagnosisPage({ params }: { params: Promise<{ id: 
   return (
     <>
       <HeartDiseasePrediction resultData={diagnosis.results as ResultData} />
-      <ReportDownloadButton component={<HeartDiseasePrediction resultData={diagnosis.results as ResultData} />} />
     </>
   )
 

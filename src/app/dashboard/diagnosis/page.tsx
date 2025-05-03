@@ -75,7 +75,7 @@ export default async function DiagnosisTablePage () {
   return (
     <div>
       <div className="mb-3">
-        <div className="text-xl font-bold">Reports</div>
+        <div className="text-2xl font-bold">Reports</div>
       </div>
       <Table>
         <TableCaption>A list of the recent reports.</TableCaption>
@@ -99,7 +99,7 @@ export default async function DiagnosisTablePage () {
               </TableCell>
               <TableCell>{report.createdAt.toLocaleString("en-us")}</TableCell>
               <TableCell>
-                <Link href={`/dashboard/diagnosis/${report.id}`} target="_blank" className="block text-blue-500 hover:text-blue-700 p-1">
+                <Link href={`/dashboard/diagnosis/${report.id}`} target="_blank" className="block p-1 text-gray-600">
                   <Eye size={20} />
                 </Link>
               </TableCell>

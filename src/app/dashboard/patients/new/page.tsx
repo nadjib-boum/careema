@@ -36,7 +36,7 @@ export default function () {
     defaultValues: {
       name: "",
       sex: "Male",
-      age: 0,
+      age: undefined,
       phone: "",
     },
   })
@@ -82,13 +82,13 @@ export default function () {
             )}
           />
           
-          {/* Gender Field */}
+          {/* Sex Field */}
           <FormField
             control={form.control}
             name="sex"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Gender</FormLabel>
+                <FormLabel>Sex</FormLabel>
                 <Select 
                   onValueChange={field.onChange} 
                   defaultValue={field.value}
