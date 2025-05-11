@@ -9,6 +9,9 @@ export default async function DiagnosisPage({ params }: { params: Promise<{ id: 
   const diagnosis = await db.diagnosis.findUnique({
     where: {
       id: id
+    },
+    include: {
+      patient: true
     }
   });
 
@@ -17,9 +20,7 @@ export default async function DiagnosisPage({ params }: { params: Promise<{ id: 
   }
 
   return (
-    <>
-      <HeartDiseasePrediction resultData={diagnosis.results as ResultData} />
-    </>
+    <HeartDiseasePrediction resultData={diagnosis.results as ResultData} patient={diagnosis.patient} />
   )
 
 }

@@ -10,6 +10,8 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
+import type { Patient } from '@prisma/client';
+import { Table, TableBody, TableCell, TableHeader, TableRow } from '@/components/ui/table';
 
 export type ResultData = {
   model_results: Array<{
@@ -22,7 +24,7 @@ export type ResultData = {
   is_diseased: boolean;
 };
 
-export default function HeartDiseasePrediction({ resultData }: { resultData: ResultData }) {
+export default function HeartDiseasePrediction({ resultData, patient }: { resultData: ResultData, patient: Patient }) {
   
   const formatModelName = (name: string) => {
     return name
@@ -55,28 +57,55 @@ export default function HeartDiseasePrediction({ resultData }: { resultData: Res
 
     console.log("Download report clicked");
 
-    const input = reportRef.current;
-    if (!input) return;
+    // const input = reportRef.current;
+    // if (!input) return;
 
-    const canvas = await html2canvas(input, { scale: 2 });
-    const imgData = canvas.toDataURL('image/png');
+    // const canvas = await html2canvas(input, { scale: 2 });
+    // const imgData = canvas.toDataURL('image/png');
 
-    const pdf = new jsPDF({
-      orientation: 'portrait',
-      unit: 'px',
-      format: [canvas.width, canvas.height],
-    });
+    // const pdf = new jsPDF({
+    //   orientation: 'portrait',
+    //   unit: 'px',
+    //   format: [canvas.width, canvas.height],
+    // });
 
-    console.log (pdf)
+    // console.log (pdf)
 
-    pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
-    pdf.save('report.pdf');
+    // pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
+    // pdf.save('report.pdf');
 
   }
 
   return (
     <>
       <div className="max-w-4xl mx-auto p-4 space-y-6">
+
+        <Card>
+          <CardContent>
+            <div className='text-2xl mb-3 ml-1 '>
+              Patient Information
+            </div>
+            <Table className='w-1/2'>
+              <TableBody>
+                <TableRow>
+                  <TableCell className='font-semibold'>Name</TableCell>
+                  <TableCell>{patient.name}</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell className='font-semibold'>Age</TableCell>
+                  <TableCell>{patient.age} years old</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell className='font-semibold'>Sex</TableCell>
+                  <TableCell>
+                    { patient.sex == "Female" ? <Badge style={{ backgroundColor: "#FF90BB" }}>female</Badge> : <Badge style={{ backgroundColor: "#0081C9" }}>male</Badge> }
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </CardContent>
+        </Card>
+
         <Card className={resultData.is_diseased ? "border-red-300" : "border-green-300"}>
           <CardHeader className="pb-2">
             <CardTitle className="flex items-center gap-2 text-2xl">
@@ -219,9 +248,9 @@ export default function HeartDiseasePrediction({ resultData }: { resultData: Res
           </CardFooter>
         </Card>
       </div>
-        <div className="flex justify-center my-6">
-        <Button size={"lg"} style={{ backgroundColor: "var(--color-1)" }} onClick={handleReportDownload}>Dowmload Report</Button>
-      </div>
+        {/* <div className="flex justify-center my-6">
+          <Button size={"lg"} style={{ backgroundColor: "var(--color-1)" }} onClick={handleReportDownload}>Dowmload Report</Button>
+        </div> */}
     </>
   );
 }
