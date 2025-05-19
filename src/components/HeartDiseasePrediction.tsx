@@ -248,9 +248,6 @@ export default function HeartDiseasePrediction({ resultData, patient }: { result
           </CardFooter>
         </Card>
       </div>
-        {/* <div className="flex justify-center my-6">
-          <Button size={"lg"} style={{ backgroundColor: "var(--color-1)" }} onClick={handleReportDownload}>Dowmload Report</Button>
-        </div> */}
     </>
   );
 }
