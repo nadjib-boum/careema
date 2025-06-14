@@ -207,3 +207,30 @@ export async function submitDiagnosis(formData: DiagnosisFormType) {
 
   }
 }
+
+export async function deleteReport(id: string) {
+
+  try {
+
+    const report = await db.diagnosis.delete({
+      where: {
+        id,
+      },
+    })
+
+    revalidatePath ("/dashboard/diagnosis");
+
+  } catch (error) {
+
+    console.error(error)
+
+    return {
+      success: false,
+      error: {
+        message: "Internal server error",
+      }
+    }
+
+  }
+
+}

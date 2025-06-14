@@ -9,8 +9,10 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import db from "@/utils/db";
-import { Eye } from "lucide-react";
+import { Delete, Eye, Trash } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import DeleteReportButton from "@/components/DeleteReportButton";
 
 const invoices = [
   {
@@ -84,7 +86,7 @@ export default async function DiagnosisTablePage () {
             <TableHead>Patient Name</TableHead>
             <TableHead>Status</TableHead>
             <TableHead>Date</TableHead>
-            <TableHead>View</TableHead>
+            <TableHead></TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -98,10 +100,11 @@ export default async function DiagnosisTablePage () {
                 <Badge variant="secondary" className="bg-green-400 text-white">negative</Badge> }
               </TableCell>
               <TableCell>{report.createdAt.toLocaleString("en-us")}</TableCell>
-              <TableCell>
+              <TableCell className="flex items-center space-x-3">
                 <Link href={`/dashboard/diagnosis/${report.id}`} target="_blank" className="block p-1 text-gray-600">
                   <Eye size={20} />
                 </Link>
+                <DeleteReportButton reportId={report.id} />
               </TableCell>
             </TableRow>
           ))}
