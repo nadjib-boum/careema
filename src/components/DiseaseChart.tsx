@@ -38,7 +38,7 @@ export function DiseaseChart ({ withCHDReportsCount, withoutCHDReportsCount }: {
   return (
     <Card className="flex flex-col">
       <CardHeader className="items-center pb-0">
-        <CardTitle className="text-lg">Prevalence of Disease X in Total Patients</CardTitle>
+        <CardTitle className="text-lg">Prevalence of CHD in Total Patients</CardTitle>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
         <ChartContainer
